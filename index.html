@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Paw-Paw Punch!</title>
+  <meta name="description" content="A tiny, super-cute fighting game you can play in your browser.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦦</text></svg>">
+</head>
+<body>
+  <div id="stage">
+    <canvas id="game" width="960" height="540"></canvas>
+
+    <div id="title" class="screen">
+      <h1 class="logo">Paw-Paw<br>Punch!</h1>
+      <p class="tag">a tiny brawl for very fluffy fighters</p>
+      <div class="menu">
+        <button class="btn primary" data-action="cpu">1 Player vs CPU</button>
+        <button class="btn" data-action="pvp">2 Players</button>
+        <button class="btn" data-action="howto">How to Play</button>
+      </div>
+    </div>
+
+    <div id="howto" class="screen hidden">
+      <h2>How to Play</h2>
+      <table class="keys">
+        <tr><th></th><th>Player 1</th><th>Player 2</th></tr>
+        <tr><td>Move</td><td><kbd>A</kbd> <kbd>D</kbd></td><td><kbd>←</kbd> <kbd>→</kbd></td></tr>
+        <tr><td>Jump</td><td><kbd>W</kbd></td><td><kbd>↑</kbd></td></tr>
+        <tr><td>Block</td><td><kbd>S</kbd></td><td><kbd>↓</kbd></td></tr>
+        <tr><td>Punch 👊</td><td><kbd>F</kbd></td><td><kbd>,</kbd> or <kbd>Num1</kbd></td></tr>
+        <tr><td>Kick 🦶</td><td><kbd>G</kbd></td><td><kbd>.</kbd> or <kbd>Num2</kbd></td></tr>
+        <tr><td>Special ✨</td><td><kbd>H</kbd></td><td><kbd>/</kbd> or <kbd>Num3</kbd></td></tr>
+      </table>
+      <p class="tips">💡 Hit a dizzy opponent again for combos · Kick in the air for a flying kick · Win 2 rounds to win the match · <kbd>P</kbd> pauses</p>
+      <button class="btn" data-action="menu">← Back</button>
+    </div>
+
+    <div id="select" class="screen hidden">
+      <h2 id="selectPrompt">Player 1, pick your fighter!</h2>
+      <div id="cards" class="cards"></div>
+      <button class="btn small" data-action="menu">← Back</button>
+    </div>
+
+    <div id="pause" class="screen hidden">
+      <h2>Paused</h2>
+      <div class="menu">
+        <button class="btn primary" data-action="resume">Resume</button>
+        <button class="btn" data-action="menu">Main Menu</button>
+      </div>
+    </div>
+
+    <div id="result" class="screen hidden">
+      <canvas id="winnerCanvas" width="220" height="230"></canvas>
+      <h2 id="resultText"></h2>
+      <div class="menu row">
+        <button class="btn primary" data-action="rematch">Rematch</button>
+        <button class="btn" data-action="reselect">Change Fighters</button>
+        <button class="btn" data-action="menu">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="touch" class="hidden">
+    <div class="pad">
+      <button data-act="left">◀</button>
+      <button data-act="up">▲</button>
+      <button data-act="right">▶</button>
+      <button data-act="block">🛡️</button>
+    </div>
+    <div class="pad">
+      <button data-act="punch">👊</button>
+      <button data-act="kick">🦶</button>
+      <button data-act="special">✨</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button id="musicBtn" class="chip">🎵 Music on</button>
+    <button id="muteBtn" class="chip">🔊 Sound on</button>
+  </div>
+  <p id="hint" class="hint invisible">
+    <b>Player 1:</b> <kbd>A</kbd> <kbd>D</kbd> move · <kbd>W</kbd> jump · <kbd>S</kbd> block · <kbd>F</kbd> punch · <kbd>G</kbd> kick · <kbd>H</kbd> special<br>
+    <b>Player 2:</b> <kbd>←</kbd> <kbd>→</kbd> move · <kbd>↑</kbd> jump · <kbd>↓</kbd> block · <kbd>,</kbd> punch · <kbd>.</kbd> kick · <kbd>/</kbd> special<br>
+    <b>Pause:</b> <kbd>P</kbd>
+  </p>
+
+  <script src="game.js"></script>
+</body>
+</html>
